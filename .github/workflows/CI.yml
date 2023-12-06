@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker Image
-      run: docker build -t kostya05a/aga232 .
+      run: docker build -t kostya05a/123 .
 
     - name: Authenticate to GitHub Package Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -39,4 +39,4 @@ jobs:
       run: docker pull ghcr.io/kostya05a/123/python-app:latest
 
     - name: Run Docker Container
-      run: docker run -d -p 8080:80 ghcr.io/kostya05a/aga232/python-app:latest
+      run: docker run -d -p 8080:80 ghcr.io/kostya05a/123/python-app:latest
