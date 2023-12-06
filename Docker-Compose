@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  app: 
+    image: ghcr.io/kostya05a/123
+    restart: unles-stopped
+    container_name: app
