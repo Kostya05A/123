@@ -6,7 +6,7 @@ services:
     tty: true
     environment:
       MYSQL_DATABASE: testdb
-      MYSQL_ROOT_PASSWORD: arlalalala
+      MYSQL_ROOT_PASSWORD: 1234567890
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -14,6 +14,7 @@ services:
       - ./data/var/log/mysql:/var/log/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    restart: always  
     networks:
       - net
   pma_srv:
