@@ -1,7 +1,37 @@
-version: "3.9"
-
+version: '3.7'
 services:
-  app: 
-    image: ghcr.io/kostya05a/123/python-app:latest
-    restart: unles-stopped
-    container_name: app
+  mysql_srv:
+    container_name: mysql_srv
+    image: mysql:8.0
+    tty: true
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_ROOT_PASSWORD: arlalalala
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./data/var/lib/mysql:/var/lib/mysql
+      - ./data/var/log/mysql:/var/log/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    networks:
+      - net
+  pma_srv:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql_srv
+      PMA_PORT: 3306
+    depends_on:
+      - mysql_srv
+    links:
+      - mysql_srv
+    ports:
+      - 80:80
+    networks:
+      - net
+    expose:
+      - 80
+networks:
+  net:
+    external: true
